@@ -1,5 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Measurement } from "../measurement";
+import { AngularWaitBarrier } from "blocking-proxy/built/lib/angular_wait_barrier";
+import { isNumber } from "util";
+import { getLocaleDateFormat } from "@angular/common";
 
 @Component({
   selector: "app-measurements",
@@ -8,25 +11,48 @@ import { Measurement } from "../measurement";
 })
 export class MeasurementsComponent {
   measurementList: Measurement[] = [];
+  inputIsNumber: boolean = false;
+  isWeekend: boolean = false;
+  isSameDay: boolean = false;
 
-  constructor() {
+  constructor() {}
+
+  onKeyPress(key: string) {
+    if (!key) {
+      this.inputIsNumber = false;
+      return;
+    }
+
+    if (isNaN(+key)) {
+      this.inputIsNumber = false;
+      console.log(`${key} is not a number`);
+      return;
+    }
+
+    this.inputIsNumber = true;
   }
 
   addMeasurement(measure: number): void {
-    
+    //check if it's the same day
+    if((this.measurementList).length) {
+      this.checkCurrentDay(this.getDate());
+    }
     // validate is not empty
     if (!measure) {
+      console.log("inputul e gol");
       return;
     }
 
     // validate is a number
-    // TODO
+    if (isNaN(measure)) {
+      console.log(`${measure} is not a number`);
+    }
 
     // add date with number
-    // TODO
-
-    this.measurementList.push({ waist: measure });
-    console.log(this.measurementList);
+    if(!this.isSameDay) {
+    this.measurementList.push({ waist: measure, currentDay: this.getDate() });
+    }
+    console.log("Measurement list updated: ", this.measurementList);
   }
 
   getDate(): string {
@@ -34,7 +60,7 @@ export class MeasurementsComponent {
     var dd = String(today.getDate()).padStart(2, "0");
     var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
     var yyyy = today.getFullYear();
-    
+
     var d = new Date();
     var weekday = new Array(7);
     weekday[0] = "Sunday";
@@ -46,8 +72,23 @@ export class MeasurementsComponent {
     weekday[6] = "Saturday";
     var n = weekday[d.getDay()];
 
-    let date : string = n + "," + dd + "/" + mm + "/" + yyyy;
-    console.log(date);
+    let date: string = n + ", " + dd + "/" + mm + "/" + yyyy;
+    
+    weekday.forEach(day => {
+      if(day === "Saturday" || day === "Sunday") {
+        this.isWeekend = true;
+      }
+    });
     return date;
+  }
+
+  checkCurrentDay(day: string) :void {
+    let lastDay = (this.measurementList).length;
+    if(this.measurementList[lastDay - 1].currentDay === day) {
+      console.log(this.measurementList[lastDay - 1].currentDay);
+      this.isSameDay = true;
+      alert("You already set a measurement for today!");
+      return;
+    }
   }
 }

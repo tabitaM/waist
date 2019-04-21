@@ -1,12 +1,12 @@
-<div>
-  <label>
-    <input #measure placeholder="measure" />
-    <button (click)="addMeasurement(measure.value); measure.value=''">Add</button>
-  </label>
+<div class="wrapper">
+  <input class="inputMeasure" #measure placeholder="add measurement" (input)="onKeyPress($event.target.value)"/>
+  <button (click)="addMeasurement(measure.value); measure.value=''" [disabled]="!inputIsNumber">Add</button>
 </div>
 
 <ul>
   <li *ngFor="let item of measurementList">
-    <div>{{getDate()}} - {{item.waist}}</div>
+    <div *ngIf="isWeekend" class="longLine"></div>
+    <div *ngIf="!isWeekend" class="line"></div>
+    <div>{{getDate()}}  <span class="measure">{{item.waist}}cm</span> </div>
   </li>
 </ul>

@@ -1,0 +1,37 @@
+li {
+    display: flex;
+    align-items: center;
+    color: #f09983;
+}
+
+.measure {
+    color:white;
+}
+
+.line {
+    height: 10px;
+	width: 50px;
+	background: #f09983;
+	margin-right: 10px;
+}
+
+.longLine {
+    height: 10px;
+	width: 70px;
+	background: #f09983;
+	margin-right: 10px;
+}
+
+.wrapper {
+    text-align: center;
+}
+
+.inputMeasure {
+
+}
+
+button {
+    display: block;
+    margin: auto;
+    margin-top: 1em;
+}
