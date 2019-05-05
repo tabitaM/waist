@@ -1,12 +1,29 @@
-<div class="wrapper">
-  <input class="inputMeasure" #measure placeholder="add measurement" (input)="onKeyPress($event.target.value)"/>
-  <button (click)="addMeasurement(measure.value); measure.value=''" [disabled]="!inputIsNumber">Add</button>
+<div class="container">
+
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+        <div class="input-group mb-3" action="" (submit)="addMeasurement()">
+            <input type="text" class="form-control" placeholder="Add measurement" #measure
+              (input)="onKeyPress($event.target.value)">
+            <div class="input-group-append">
+              <button class="btn btn-light" type="submit" id="button-addon2"
+                (click)="addMeasurement(measure.value); measure.value=''" [disabled]="!inputIsNumber">Add</button>
+            </div>
+          </div>
+    </div>  
+    <div class="col-2"></div>
+  
 </div>
 
+</div>
+
+
+
 <ul>
-  <li *ngFor="let item of measurementList">
+  <li class="myLi" *ngFor="let item of measurementList">
     <div *ngIf="isWeekend" class="longLine"></div>
     <div *ngIf="!isWeekend" class="line"></div>
-    <div>{{getDate()}}  <span class="measure">{{item.waist}}cm</span> </div>
+    <div>{{getDate()}} <span class="measure">{{item.waist}}cm</span> </div>
   </li>
 </ul>

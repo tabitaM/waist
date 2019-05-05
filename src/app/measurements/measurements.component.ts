@@ -10,6 +10,11 @@ import { getLocaleDateFormat } from "@angular/common";
   styleUrls: ["./measurements.component.css"]
 })
 export class MeasurementsComponent {
+  model = {
+    left: true,
+    middle: false,
+    right: false
+  };
   measurementList: Measurement[] = [];
   inputIsNumber: boolean = false;
   isWeekend: boolean = false;
@@ -34,9 +39,9 @@ export class MeasurementsComponent {
 
   addMeasurement(measure: number): void {
     //check if it's the same day
-    if((this.measurementList).length) {
-      this.checkCurrentDay(this.getDate());
-    }
+    // if((this.measurementList).length) {
+    //   this.checkCurrentDay(this.getDate());
+    // }
     // validate is not empty
     if (!measure) {
       console.log("inputul e gol");

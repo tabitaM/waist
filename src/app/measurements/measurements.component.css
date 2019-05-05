@@ -22,16 +22,6 @@ li {
 	margin-right: 10px;
 }
 
-.wrapper {
-    text-align: center;
-}
-
-.inputMeasure {
-
-}
-
-button {
-    display: block;
-    margin: auto;
-    margin-top: 1em;
+.row {
+    padding-bottom: 2em;
 }

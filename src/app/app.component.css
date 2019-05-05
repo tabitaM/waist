@@ -4,4 +4,6 @@ h1 {
     font-size: 60px;
     font-weight: bold;
     color: white;
+    padding-top: 1em;
+    padding-bottom: 1.5em;
 }
