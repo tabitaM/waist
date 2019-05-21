@@ -3,6 +3,8 @@ import { Measurement } from "../measurement";
 import { AngularWaitBarrier } from "blocking-proxy/built/lib/angular_wait_barrier";
 import { isNumber } from "util";
 import { getLocaleDateFormat } from "@angular/common";
+import { Observable } from 'rxjs';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 
 @Component({
   selector: "app-measurements",
@@ -10,17 +12,22 @@ import { getLocaleDateFormat } from "@angular/common";
   styleUrls: ["./measurements.component.css"]
 })
 export class MeasurementsComponent {
-  model = {
-    left: true,
-    middle: false,
-    right: false
-  };
   measurementList: Measurement[] = [];
   inputIsNumber: boolean = false;
   isWeekend: boolean = false;
   isSameDay: boolean = false;
 
-  constructor() {}
+  //measurements: Observable<Measurement[]>;
+  measurements: AngularFireList<Measurement>;
+
+
+  constructor(database: AngularFireDatabase) {
+    database.list<Measurement>('/measurements').valueChanges().subscribe(measurements => {
+      console.log(measurements);
+    })
+  }
+
+  //constructor() {}
 
   onKeyPress(key: string) {
     if (!key) {
@@ -53,9 +60,10 @@ export class MeasurementsComponent {
       console.log(`${measure} is not a number`);
     }
 
-    // add date with number
+    // add date with number //TODO update database
     if(!this.isSameDay) {
-    this.measurementList.push({ waist: measure, currentDay: this.getDate() });
+    this.measurementList.push({ waist: measure, date: this.getDate() });
+    this.measurements.push({ waist: measure, date: this.getDate() });
     }
     console.log("Measurement list updated: ", this.measurementList);
   }
@@ -89,8 +97,8 @@ export class MeasurementsComponent {
 
   checkCurrentDay(day: string) :void {
     let lastDay = (this.measurementList).length;
-    if(this.measurementList[lastDay - 1].currentDay === day) {
-      console.log(this.measurementList[lastDay - 1].currentDay);
+    if(this.measurementList[lastDay - 1].date === day) {
+      console.log(this.measurementList[lastDay - 1].date);
       this.isSameDay = true;
       alert("You already set a measurement for today!");
       return;

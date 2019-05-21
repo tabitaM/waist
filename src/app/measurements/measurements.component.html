@@ -27,3 +27,9 @@
     <div>{{getDate()}} <span class="measure">{{item.waist}}cm</span> </div>
   </li>
 </ul>
+
+<ul>
+  <li *ngFor="let measure of measurements">
+    {{measure.$value}}
+  </li>
+</ul>

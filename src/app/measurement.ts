@@ -1,4 +1,4 @@
 export class Measurement {
     waist: number;
-    currentDay: string;
+    date: string;
 }
