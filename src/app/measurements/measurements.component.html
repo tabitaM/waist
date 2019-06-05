@@ -3,33 +3,27 @@
   <div class="row">
     <div class="col-2"></div>
     <div class="col-8">
-        <div class="input-group mb-3" action="" (submit)="addMeasurement()">
-            <input type="text" class="form-control" placeholder="Add measurement" #measure
-              (input)="onKeyPress($event.target.value)">
-            <div class="input-group-append">
-              <button class="btn btn-light" type="submit" id="button-addon2"
-                (click)="addMeasurement(measure.value); measure.value=''" [disabled]="!inputIsNumber">Add</button>
-            </div>
-          </div>
-    </div>  
+      <div class="input-group mb-3" action="" (submit)="addMeasurement()">
+        <input type="text" class="form-control" placeholder="Add measurement" #measure
+          (input)="onKeyPress($event.target.value)">
+        <div class="input-group-append">
+          <button class="btn btn-light" type="submit" id="button-addon2"
+            (click)="addMeasurement(measure.value); measure.value=''" [disabled]="!inputIsNumber">Add</button>
+        </div>
+      </div>
+    </div>
     <div class="col-2"></div>
-  
-</div>
+
+  </div>
 
 </div>
 
 
 
 <ul>
-  <li class="myLi" *ngFor="let item of measurementList">
-    <div *ngIf="isWeekend" class="longLine"></div>
-    <div *ngIf="!isWeekend" class="line"></div>
-    <div>{{getDate()}} <span class="measure">{{item.waist}}cm</span> </div>
-  </li>
-</ul>
-
-<ul>
-  <li *ngFor="let measure of measurements">
-    {{measure.$value}}
+  <li *ngFor="let item of measurementList">
+    <div *ngIf="isWeekend(item.date)" class="longLine"></div>
+    <div *ngIf="!isWeekend(item.date)" class="line"></div>
+    <div>{{item.date}} <span class="measure">{{item.waist}} cm</span> </div>
   </li>
 </ul>

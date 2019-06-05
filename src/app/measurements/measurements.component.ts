@@ -1,10 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Measurement } from "../measurement";
-import { AngularWaitBarrier } from "blocking-proxy/built/lib/angular_wait_barrier";
-import { isNumber } from "util";
-import { getLocaleDateFormat } from "@angular/common";
-import { Observable } from 'rxjs';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { AngularFireDatabase } from "angularfire2/database";
 
 @Component({
   selector: "app-measurements",
@@ -14,20 +10,14 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 export class MeasurementsComponent {
   measurementList: Measurement[] = [];
   inputIsNumber: boolean = false;
-  isWeekend: boolean = false;
-  isSameDay: boolean = false;
 
-  //measurements: Observable<Measurement[]>;
-  measurements: AngularFireList<Measurement>;
-
-
+  // initialize withfirebase
   constructor(database: AngularFireDatabase) {
-    database.list<Measurement>('/measurements').valueChanges().subscribe(measurements => {
-      console.log(measurements);
+    database.list<Measurement>('/measurements').valueChanges().subscribe(measurementsFB => {
+      console.log("Values from firebase: ",measurementsFB);
+      this.measurementList.push(...measurementsFB)
     })
   }
-
-  //constructor() {}
 
   onKeyPress(key: string) {
     if (!key) {
@@ -44,31 +34,31 @@ export class MeasurementsComponent {
     this.inputIsNumber = true;
   }
 
+  removeTodayMeasurement(): void{
+    // TODO implement
+  }
+
   addMeasurement(measure: number): void {
-    //check if it's the same day
-    // if((this.measurementList).length) {
-    //   this.checkCurrentDay(this.getDate());
-    // }
-    // validate is not empty
-    if (!measure) {
-      console.log("inputul e gol");
+    // check if we have a measure today
+    if(this.todayAlreadyMeasured()) {
+      alert("You already set a measurement for today!");
       return;
     }
 
-    // validate is a number
+    // validate if it's a number
     if (isNaN(measure)) {
       console.log(`${measure} is not a number`);
     }
 
-    // add date with number //TODO update database
-    if(!this.isSameDay) {
-    this.measurementList.push({ waist: measure, date: this.getDate() });
-    this.measurements.push({ waist: measure, date: this.getDate() });
-    }
+    // add date with number
+    this.measurementList.push({ waist: measure, date: this.getCurrentDate() });
+
+    // TODO add to firebase !!
+
     console.log("Measurement list updated: ", this.measurementList);
   }
 
-  getDate(): string {
+  getCurrentDate(): string {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, "0");
     var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
@@ -83,25 +73,34 @@ export class MeasurementsComponent {
     weekday[4] = "Thursday";
     weekday[5] = "Friday";
     weekday[6] = "Saturday";
-    var n = weekday[d.getDay()];
+    var currentDayName = weekday[d.getDay()];
 
-    let date: string = n + ", " + dd + "/" + mm + "/" + yyyy;
-    
-    weekday.forEach(day => {
-      if(day === "Saturday" || day === "Sunday") {
-        this.isWeekend = true;
-      }
-    });
+    let date: string = currentDayName + ", " + dd + "/" + mm + "/" + yyyy;
     return date;
   }
 
-  checkCurrentDay(day: string) :void {
-    let lastDay = (this.measurementList).length;
-    if(this.measurementList[lastDay - 1].date === day) {
-      console.log(this.measurementList[lastDay - 1].date);
-      this.isSameDay = true;
-      alert("You already set a measurement for today!");
-      return;
+  isWeekend(date :string): boolean {
+    var day = date.split(',')[0]
+    if(day === "Saturday" || day === "Sunday"){
+      return true;
     }
+
+    return false;
+  }
+
+  todayAlreadyMeasured(): boolean {
+    if (this.measurementList.length === 0) {
+      return false;
+    }
+
+    let measurementLength = this.measurementList.length;
+    if (
+      this.measurementList[measurementLength - 1].date === this.getCurrentDate()
+    ) {
+      console.log(this.measurementList[measurementLength - 1].date);
+      return true;
+    }
+
+    return false;
   }
 }
