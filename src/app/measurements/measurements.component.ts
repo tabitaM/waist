@@ -1,22 +1,30 @@
 import { Component, OnInit } from "@angular/core";
 import { Measurement } from "../measurement";
-import { AngularFireDatabase } from "angularfire2/database";
+import { MeasurementsService } from "../measurements.service";
 
 @Component({
   selector: "app-measurements",
   templateUrl: "./measurements.component.html",
   styleUrls: ["./measurements.component.css"]
 })
-export class MeasurementsComponent {
+export class MeasurementsComponent implements OnInit {
   measurementList: Measurement[] = [];
   inputIsNumber: boolean = false;
+  measurementsArray = [];
+  editTextbox: boolean = true;
 
-  // initialize withfirebase
-  constructor(database: AngularFireDatabase) {
-    database.list<Measurement>('/measurements').valueChanges().subscribe(measurementsFB => {
-      console.log("Values from firebase: ",measurementsFB);
-      this.measurementList.push(...measurementsFB)
-    })
+  constructor(private measurementsService: MeasurementsService) {}
+
+  //retrieve data from Firebase when the component started
+  ngOnInit() {
+    this.measurementsService.getMeasurementsFromFB().subscribe(list => {
+      this.measurementsArray = list.map(item => {
+        return {
+          $key: item.key,
+          ...item.payload.val() //payload contains all the info about objects, but not the key from FB
+        };
+      });
+    });
   }
 
   onKeyPress(key: string) {
@@ -34,28 +42,31 @@ export class MeasurementsComponent {
     this.inputIsNumber = true;
   }
 
-  removeTodayMeasurement(): void{
-    // TODO implement
-  }
+  addMeasurement(waist: number): void {
+    // make sure is number (this is here because of enter action)
+    if (!this.inputIsNumber) {
+      return;
+    }
 
-  addMeasurement(measure: number): void {
-    // check if we have a measure today
-    if(this.todayAlreadyMeasured()) {
+    // check if we have a waist today
+    if (this.todayAlreadyMeasured()) {
       alert("You already set a measurement for today!");
       return;
     }
 
-    // validate if it's a number
-    if (isNaN(measure)) {
-      console.log(`${measure} is not a number`);
-    }
-
     // add date with number
-    this.measurementList.push({ waist: measure, date: this.getCurrentDate() });
-
-    // TODO add to firebase !!
-
-    console.log("Measurement list updated: ", this.measurementList);
+    // TODO: investigate why we need to use parseInt() ??
+    const measurement = {
+      waist: parseInt(waist.toString()),
+      date: this.getCurrentDate()
+    };
+    if (this.measurementsService.form.get("$key").value == null) {
+      this.measurementsService.insertMeasurementToFB(measurement);
+    } else {
+      this.measurementsService.updateMeasurement(
+        this.measurementsService.form.value
+      );
+    }
   }
 
   getCurrentDate(): string {
@@ -79,9 +90,9 @@ export class MeasurementsComponent {
     return date;
   }
 
-  isWeekend(date :string): boolean {
-    var day = date.split(',')[0]
-    if(day === "Saturday" || day === "Sunday"){
+  isWeekend(date: string): boolean {
+    var day = date.split(",")[0];
+    if (day === "Saturday" || day === "Sunday") {
       return true;
     }
 
@@ -89,18 +100,28 @@ export class MeasurementsComponent {
   }
 
   todayAlreadyMeasured(): boolean {
-    if (this.measurementList.length === 0) {
+    if (this.measurementsArray.length === 0) {
       return false;
     }
 
-    let measurementLength = this.measurementList.length;
+    let measurementLength = this.measurementsArray.length;
     if (
-      this.measurementList[measurementLength - 1].date === this.getCurrentDate()
+      this.measurementsArray[measurementLength - 1].date ===
+      this.getCurrentDate()
     ) {
-      console.log(this.measurementList[measurementLength - 1].date);
+      console.log(this.measurementsArray[measurementLength - 1].date);
       return true;
     }
-
     return false;
+  }
+
+  onDelete($key) {
+    if (confirm("Are you sure you want to delete this record?")) {
+      this.measurementsService.deleteMeasurement($key);
+    }
+  }
+
+  toogleInput() {
+    this.editTextbox = !this.editTextbox;
   }
 }

@@ -1,27 +1,42 @@
 li {
-    display: flex;
-    align-items: center;
-    color: #f09983;
+  display: flex;
+  align-items: center;
+  color: #f09983;
 }
 
 .measure {
-    color:white;
+  color: white;
 }
 
 .line {
-    height: 10px;
-	width: 50px;
-	background: #f09983;
-	margin-right: 10px;
+  height: 10px;
+  width: 50px;
+  background: #f09983;
+  margin-right: 10px;
 }
 
 .longLine {
-    height: 10px;
-	width: 70px;
-	background: #f09983;
-	margin-right: 10px;
+  height: 10px;
+  width: 70px;
+  background: #f09983;
+  margin-right: 10px;
 }
 
 .row {
-    padding-bottom: 2em;
+  padding-bottom: 2em;
+}
+
+.deleteMeasurement {
+  display: block;
+  max-width: 300px;
+  margin: auto;
+}
+
+.deleteIcon {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.col-4 {
+  display: inline-flex;
 }

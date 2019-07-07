@@ -1,29 +1,31 @@
 <div class="container">
-
   <div class="row">
     <div class="col-2"></div>
     <div class="col-8">
-      <div class="input-group mb-3" action="" (submit)="addMeasurement()">
+      <div class="input-group mb-3" action="" (keydown.enter)="addMeasurement(measure.value); measure.value = ''">
         <input type="text" class="form-control" placeholder="Add measurement" #measure
-          (input)="onKeyPress($event.target.value)">
+          (input)="onKeyPress($event.target.value)" />
         <div class="input-group-append">
           <button class="btn btn-light" type="submit" id="button-addon2"
-            (click)="addMeasurement(measure.value); measure.value=''" [disabled]="!inputIsNumber">Add</button>
+            (click)="addMeasurement(measure.value); measure.value = ''" [disabled]="!inputIsNumber">
+            Add
+          </button>
         </div>
       </div>
     </div>
     <div class="col-2"></div>
-
   </div>
-
 </div>
 
-
-
 <ul>
-  <li *ngFor="let item of measurementList">
+  <li *ngFor="let item of measurementsArray">
     <div *ngIf="isWeekend(item.date)" class="longLine"></div>
     <div *ngIf="!isWeekend(item.date)" class="line"></div>
-    <div>{{item.date}} <span class="measure">{{item.waist}} cm</span> </div>
+    <div>{{item.date}} <span class="measure">{{item.waist}}cm &nbsp; </span> </div>
+    <button class="btn btn-outline-secondary" (click)="!toogleInput()">Edit</button>
+    <div *ngIf="!editTextbox" (keydown.enter)="measurementsService.updateMeasurement(item); toogleInput()">
+      <input [(ngModel)]="item.waist" type="text">
+    </div>
+    <button class="btn btn-outline-danger" (click)="onDelete(item.$key)">Delete</button>
   </li>
 </ul>
