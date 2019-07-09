@@ -40,16 +40,15 @@ export class MeasurementsComponent implements OnInit {
     }
 
     // check if we have a waist today
-    if (this.todayAlreadyMeasured()) {
+    if (this.isTodayAlreadyMeasured()) {
       alert("You already set a measurement for today!");
       return;
     }
 
     // add date with number
-    // TODO: investigate why we need to use parseInt() ??
     const measurement: Measurement = {
       key: null,
-      waist: parseInt(waist.toString()),
+      waist: +waist,
       date: getCurrentDate()
     };
     this.measurementsService.add(measurement);
@@ -66,7 +65,7 @@ export class MeasurementsComponent implements OnInit {
   }
 
   // // // // // VALIDATIONS // // // // //
-  onKeyPress(key: string) {
+  isNumber(key: string): boolean {
     if (!key) {
       this.inputIsNumber = false;
       return;
@@ -90,7 +89,7 @@ export class MeasurementsComponent implements OnInit {
     return false;
   }
 
-  todayAlreadyMeasured(): boolean {
+  isTodayAlreadyMeasured(): boolean {
     if (this.measurementList.length === 0) {
       return false;
     }
@@ -103,7 +102,7 @@ export class MeasurementsComponent implements OnInit {
     return false;
   }
 
-  toogleInput() {
+  toogleInput(): void {
     this.editTextbox = !this.editTextbox;
   }
 }

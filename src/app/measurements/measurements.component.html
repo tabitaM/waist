@@ -4,7 +4,7 @@
     <div class="col-8">
       <div class="input-group mb-3" action="" (keydown.enter)="addMeasurement(measure.value); measure.value = ''">
         <input type="text" class="form-control" placeholder="Add measurement" #measure
-          (input)="onKeyPress($event.target.value)" />
+          (input)="isNumber($event.target.value)" />
         <div class="input-group-append">
           <button class="btn btn-light" type="submit" id="button-addon2"
             (click)="addMeasurement(measure.value); measure.value = ''" [disabled]="!inputIsNumber">
@@ -22,10 +22,32 @@
     <div *ngIf="isWeekend(item.date)" class="longLine"></div>
     <div *ngIf="!isWeekend(item.date)" class="line"></div>
     <div>{{item.date}} <span class="measure">{{item.waist}}cm &nbsp; </span> </div>
-    <button class="btn btn-outline-secondary" (click)="!toogleInput()">Edit</button>
-    <div *ngIf="!editTextbox" (keydown.enter)="updateMeasurement(item); toogleInput()">
-      <input [(ngModel)]="item.waist" type="text">
+    <button class="btn btn-outline-secondary" data-target="#editModal" data-toggle="modal">Edit</button>
+
+    <div class="modal fade" id="editModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4> Edit </h4>
+            <button class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <input class="form-control" [(ngModel)]="item.waist" placeholder="edit measure" type="text"
+              (keydown.enter)="updateMeasurement(item)" />
+          </div>
+          <div class="model-footer">
+            <button class="btn btn-primary" (click)="updateMeasurement(item)"> Save </button>
+            <button class="btn btn-primary" data-dismiss="modal"> Cancel </button>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- <button class="btn btn-outline-secondary" (click)="!toogleInput()">Edit</button>
+    <div *ngIf="!editTextbox" (keydown.enter)="updateMeasurement(item); toogleInput()">
+      <input [(ngModel)]="item.waist" type="text"/>
+    </div> -->
+
     <button class="btn btn-outline-danger" (click)="deleteMeasurement(item.key)">Delete</button>
   </li>
 </ul>

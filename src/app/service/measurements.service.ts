@@ -25,7 +25,7 @@ export class MeasurementsService {
 
   update(measurement: Measurement) {
     this.firebaseMeasurements.update(measurement.key, {
-      waist: measurement.waist
+      waist: +measurement.waist
     });
   }
 
