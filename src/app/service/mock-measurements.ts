@@ -1,4 +1,4 @@
-import { Measurement } from "./measurement";
+import { Measurement } from "./model/measurement";
 
 export const MEASUREMENTS: Measurement[] = [
   { waist: 45, date: "Sunday, 02/06/2019" },

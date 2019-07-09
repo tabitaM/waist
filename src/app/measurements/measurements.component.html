@@ -18,14 +18,14 @@
 </div>
 
 <ul>
-  <li *ngFor="let item of measurementsArray">
+  <li *ngFor="let item of measurementList">
     <div *ngIf="isWeekend(item.date)" class="longLine"></div>
     <div *ngIf="!isWeekend(item.date)" class="line"></div>
     <div>{{item.date}} <span class="measure">{{item.waist}}cm &nbsp; </span> </div>
     <button class="btn btn-outline-secondary" (click)="!toogleInput()">Edit</button>
-    <div *ngIf="!editTextbox" (keydown.enter)="measurementsService.updateMeasurement(item); toogleInput()">
+    <div *ngIf="!editTextbox" (keydown.enter)="updateMeasurement(item); toogleInput()">
       <input [(ngModel)]="item.waist" type="text">
     </div>
-    <button class="btn btn-outline-danger" (click)="onDelete(item.$key)">Delete</button>
+    <button class="btn btn-outline-danger" (click)="deleteMeasurement(item.key)">Delete</button>
   </li>
 </ul>

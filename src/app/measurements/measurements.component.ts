@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { Measurement } from "../measurement";
-import { MeasurementsService } from "../measurements.service";
+import { Measurement } from "../model/measurement";
+import { MeasurementsService } from "../service/measurements.service";
+import { getCurrentDate } from "../utils/utils";
 
 @Component({
   selector: "app-measurements",
@@ -8,38 +9,28 @@ import { MeasurementsService } from "../measurements.service";
   styleUrls: ["./measurements.component.css"]
 })
 export class MeasurementsComponent implements OnInit {
-  measurementList: Measurement[] = [];
+  measurementList: Measurement[];
   inputIsNumber: boolean = false;
-  measurementsArray = [];
   editTextbox: boolean = true;
 
   constructor(private measurementsService: MeasurementsService) {}
 
-  //retrieve data from Firebase when the component started
+  //retrieve data from Firebase when the component starts
   ngOnInit() {
-    this.measurementsService.getMeasurementsFromFB().subscribe(list => {
-      this.measurementsArray = list.map(item => {
+    // NORMAL, syncron
+
+    this.measurementsService.get().subscribe(list => {
+      // CALLBACK, asyncron
+      this.measurementList = list.map(item => {
         return {
-          $key: item.key,
+          key: item.key,
           ...item.payload.val() //payload contains all the info about objects, but not the key from FB
         };
       });
+      console.log("measurements ", this.measurementList);
     });
-  }
 
-  onKeyPress(key: string) {
-    if (!key) {
-      this.inputIsNumber = false;
-      return;
-    }
-
-    if (isNaN(+key)) {
-      this.inputIsNumber = false;
-      console.log(`${key} is not a number`);
-      return;
-    }
-
-    this.inputIsNumber = true;
+    // NORMAL, syncron
   }
 
   addMeasurement(waist: number): void {
@@ -56,38 +47,38 @@ export class MeasurementsComponent implements OnInit {
 
     // add date with number
     // TODO: investigate why we need to use parseInt() ??
-    const measurement = {
+    const measurement: Measurement = {
+      key: null,
       waist: parseInt(waist.toString()),
-      date: this.getCurrentDate()
+      date: getCurrentDate()
     };
-    if (this.measurementsService.form.get("$key").value == null) {
-      this.measurementsService.insertMeasurementToFB(measurement);
-    } else {
-      this.measurementsService.updateMeasurement(
-        this.measurementsService.form.value
-      );
+    this.measurementsService.add(measurement);
+  }
+
+  updateMeasurement(measurement: Measurement) {
+    this.measurementsService.update(measurement);
+  }
+
+  deleteMeasurement(key: string) {
+    if (confirm("Are you sure you want to delete this record?")) {
+      this.measurementsService.delete(key);
     }
   }
 
-  getCurrentDate(): string {
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, "0");
-    var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-    var yyyy = today.getFullYear();
+  // // // // // VALIDATIONS // // // // //
+  onKeyPress(key: string) {
+    if (!key) {
+      this.inputIsNumber = false;
+      return;
+    }
 
-    var d = new Date();
-    var weekday = new Array(7);
-    weekday[0] = "Sunday";
-    weekday[1] = "Monday";
-    weekday[2] = "Tuesday";
-    weekday[3] = "Wednesday";
-    weekday[4] = "Thursday";
-    weekday[5] = "Friday";
-    weekday[6] = "Saturday";
-    var currentDayName = weekday[d.getDay()];
+    if (isNaN(+key)) {
+      this.inputIsNumber = false;
+      console.log(`${key} is not a number`);
+      return;
+    }
 
-    let date: string = currentDayName + ", " + dd + "/" + mm + "/" + yyyy;
-    return date;
+    this.inputIsNumber = true;
   }
 
   isWeekend(date: string): boolean {
@@ -100,25 +91,16 @@ export class MeasurementsComponent implements OnInit {
   }
 
   todayAlreadyMeasured(): boolean {
-    if (this.measurementsArray.length === 0) {
+    if (this.measurementList.length === 0) {
       return false;
     }
 
-    let measurementLength = this.measurementsArray.length;
-    if (
-      this.measurementsArray[measurementLength - 1].date ===
-      this.getCurrentDate()
-    ) {
-      console.log(this.measurementsArray[measurementLength - 1].date);
+    let measurementLength = this.measurementList.length;
+    if (this.measurementList[measurementLength - 1].date === getCurrentDate()) {
+      console.log(this.measurementList[measurementLength - 1].date);
       return true;
     }
     return false;
-  }
-
-  onDelete($key) {
-    if (confirm("Are you sure you want to delete this record?")) {
-      this.measurementsService.deleteMeasurement($key);
-    }
   }
 
   toogleInput() {
