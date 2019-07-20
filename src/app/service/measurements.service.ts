@@ -6,6 +6,7 @@ import { getCurrentDate } from "../utils/utils";
 @Injectable({
   providedIn: "root"
 })
+
 export class MeasurementsService {
   firebaseMeasurements: AngularFireList<any>;
 

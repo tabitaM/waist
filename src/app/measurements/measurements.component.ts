@@ -8,6 +8,7 @@ import { getCurrentDate } from "../utils/utils";
   templateUrl: "./measurements.component.html",
   styleUrls: ["./measurements.component.css"]
 })
+
 export class MeasurementsComponent implements OnInit {
   measurementList: Measurement[];
   inputIsNumber: boolean = false;
