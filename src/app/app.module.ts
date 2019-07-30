@@ -39,7 +39,7 @@ import { MeasurementsService } from './service/measurements.service';
     MatIconModule,
     RouterModule.forRoot([
       { path: '', component: MeasurementsComponent },
-      { path: "edit/:id", component: EditComponent},
+      { path: "edit/:key", component: EditComponent},
     ])
   ],
   providers: [MeasurementsService],

@@ -15,17 +15,14 @@
 </button>
 
 <ul>
-  <li *ngFor="let item of measurementList; index as id">
+  <li *ngFor="let item of measurementList">
     <div *ngIf="isWeekend(item.date)" class="longLine"></div>
     <div *ngIf="!isWeekend(item.date)" class="line"></div>
     <div>{{item.date}} <span class="measure">{{item.waist}}cm &nbsp; </span> </div>
 
-    <a [routerLink]="['/edit',id]">
+    <a [routerLink]="['/edit',item.key]">
       <mat-icon aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
     </a>
-    <!-- <div *ngIf="!editTextbox" (keydown.enter)="updateMeasurement(item); toogleInput()">
-      <input [(ngModel)]="item.waist" type="text" />
-    </div> -->
 
     <mat-icon aria-hidden="false" aria-label="Example home icon" (click)="deleteMeasurement(item.key)">delete</mat-icon>
 

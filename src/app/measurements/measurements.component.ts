@@ -104,8 +104,4 @@ export class MeasurementsComponent implements OnInit {
     }
     return false;
   }
-
-  toogleInput(): void {
-    this.editTextbox = !this.editTextbox;
-  }
 }
