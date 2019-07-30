@@ -1,68 +1,33 @@
-<!-- <div class="container">
-  <div class="row">
-    <div class="col-2"></div>
-    <div class="col-8">
-      <div class="input-group mb-3" action="" (keydown.enter)="addMeasurement(measure.value); measure.value = ''">
-        <input type="text" class="form-control" placeholder="Add measurement" #measure
-          (input)="isNumber($event.target.value)" />
-        <div class="input-group-append">
-          <button class="btn btn-light" type="submit" id="button-addon2"
-            (click)="addMeasurement(measure.value); measure.value = ''" [disabled]="!inputIsNumber">
-            Add
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="col-2"></div>
-  </div>
-</div> -->
+<h1>
+  {{ title }}
+</h1>
 
 <div class="input-group mb-3" action=""></div>
 <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Add measurement" #measure
-      (input)="isNumber($event.target.value)"
-      (keydown.enter)="addMeasurement(measure.value); measure.value = ''">
-    </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input class="addMeasurementByInput" matInput placeholder="Add measurement" #measure
+      (input)="isNumber($event.target.value)" (keydown.enter)="addMeasurement(measure.value); measure.value = ''">
+  </mat-form-field>
 </form>
-<button mat-button type="submit" id="button-addon2"
-            (click)="addMeasurement(measure.value); measure.value = ''" [disabled]="!inputIsNumber">
-            Add
-          </button>
+<button class="addMeasurementByButton" mat-raised-button color="basic" type="submit" id="button-addon2"
+  (click)="addMeasurement(measure.value); measure.value = ''" [disabled]="!inputIsNumber">
+  Add
+</button>
 
 <ul>
-  <li *ngFor="let item of measurementList; let i=index;">
+  <li *ngFor="let item of measurementList; index as id">
     <div *ngIf="isWeekend(item.date)" class="longLine"></div>
     <div *ngIf="!isWeekend(item.date)" class="line"></div>
     <div>{{item.date}} <span class="measure">{{item.waist}}cm &nbsp; </span> </div>
-    <!-- <button class="btn btn-outline-secondary" data-target="#editModal" data-toggle="modal">Edit</button> -->
 
-    <!-- <div class="modal fade" id="editModal" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4> Edit </h4>
-            <button class="close" data-dismiss="modal">&times;</button>
-          </div>
-          <div class="modal-body">
-            <input class="form-control" [(ngModel)]="item.waist" placeholder="edit measure" type="text"
-              (keydown.enter)="updateMeasurement(item)" />
-              Waist: {{item.waist}}
-          </div>
-          <div class="model-footer">
-            <button class="btn btn-primary" (click)="updateMeasurement(item)"> Save </button>
-            <button class="btn btn-primary" data-dismiss="modal"> Cancel </button>
-          </div>
-        </div>
-      </div>
+    <a [routerLink]="['/edit',id]">
+      <mat-icon aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
+    </a>
+    <!-- <div *ngIf="!editTextbox" (keydown.enter)="updateMeasurement(item); toogleInput()">
+      <input [(ngModel)]="item.waist" type="text" />
     </div> -->
 
-    <button mat-button (click)="!toogleInput()">Edit</button>
-    <div *ngIf="!editTextbox" (keydown.enter)="updateMeasurement(item); toogleInput()">
-      <input [(ngModel)]="item.waist" type="text"/>
-    </div>
+    <mat-icon aria-hidden="false" aria-label="Example home icon" (click)="deleteMeasurement(item.key)">delete</mat-icon>
 
-    <button mat-button (click)="deleteMeasurement(item.key)">Delete</button>
   </li>
 </ul>
-  

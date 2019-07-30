@@ -9,5 +9,4 @@ import { Measurement } from './model/measurement';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Waist';
 }

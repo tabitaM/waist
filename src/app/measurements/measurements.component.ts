@@ -10,9 +10,11 @@ import { getCurrentDate } from "../utils/utils";
 })
 
 export class MeasurementsComponent implements OnInit {
+  title = 'Waist';
   measurementList: Measurement[];
   inputIsNumber: boolean = false;
   editTextbox: boolean = true;
+  parentMessage = "Bla bla bla";
 
   constructor(private measurementsService: MeasurementsService) {}
 

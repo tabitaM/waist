@@ -46,3 +46,29 @@ li {
   max-width: 500px;
   width: 100%;
 }
+
+.addMeasurementByInput {
+  align-content:  center;
+}
+
+.addMeasurementByButton {
+  align-content: center;
+}
+
+.mat-icon {
+  cursor: pointer;
+}
+
+h1 {
+  text-align: center;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 60px;
+  font-weight: bold;
+  color: white;
+  padding-top: 1em;
+  padding-bottom: 1.5em;
+}
+
+a {
+  color: inherit;
+}

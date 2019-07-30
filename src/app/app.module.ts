@@ -5,16 +5,25 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { AppComponent } from "./app.component";
 import { MeasurementsComponent } from "./measurements/measurements.component";
 import { FormsModule } from "@angular/forms";
+import { RouterModule } from "@angular/router";
 
 import { AngularFireModule } from "angularfire2";
 import { AngularFireDatabaseModule } from "angularfire2/database";
 import { environment } from "../environments/environment";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule} from '@angular/material';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { NoopAnimationsModule } from "@angular/platform-browser/animations";
+import {
+  MatButtonModule,
+  MatCheckboxModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatIconModule
+} from "@angular/material";
+import { EditComponent } from './edit/edit.component';
+import { MeasurementsService } from './service/measurements.service';
 
 @NgModule({
-  declarations: [AppComponent, MeasurementsComponent],
+  declarations: [AppComponent, MeasurementsComponent, EditComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -26,9 +35,14 @@ import {MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule} 
     MatButtonModule,
     MatCheckboxModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatIconModule,
+    RouterModule.forRoot([
+      { path: '', component: MeasurementsComponent },
+      { path: "edit/:id", component: EditComponent},
+    ])
   ],
-  providers: [],
+  providers: [MeasurementsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
