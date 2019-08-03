@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Measurement } from "../model/measurement";
-import { ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { MeasurementsService } from "../service/measurements.service";
 
 @Component({
@@ -9,15 +9,17 @@ import { MeasurementsService } from "../service/measurements.service";
   styleUrls: ["./edit.component.css"]
 })
 export class EditComponent implements OnInit {
-  @Input() measure;
+  @Input() measure: Measurement;
   measurement: Measurement = {key: null, waist: null, date: null};
 
   constructor(
     private route: ActivatedRoute,
-    private measurementsService: MeasurementsService
+    private measurementsService: MeasurementsService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    // firebase
     this.measurement.key = this.route.snapshot.paramMap.get('key');
 
     this.measurementsService.getMeasure(this.measurement.key).subscribe(item => {
@@ -26,4 +28,11 @@ export class EditComponent implements OnInit {
     });
     
   }
+
+  updateMeasurement(measurement: Measurement) {
+    this.measurementsService.update(measurement);
+    alert("Measurement was successfully updated!");
+    this.router.navigate(['']);
+  }
+
 }

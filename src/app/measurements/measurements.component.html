@@ -3,16 +3,16 @@
 </h1>
 
 <div class="input-group mb-3" action=""></div>
-<form class="example-form">
+<div class="add-section">
   <mat-form-field class="example-full-width">
     <input class="addMeasurementByInput" matInput placeholder="Add measurement" #measure
       (input)="isNumber($event.target.value)" (keydown.enter)="addMeasurement(measure.value); measure.value = ''">
   </mat-form-field>
-</form>
-<button class="addMeasurementByButton" mat-raised-button color="basic" type="submit" id="button-addon2"
+<button class="addMeasurementByButton" mat-flat-button type="submit" id="button-addon2"
   (click)="addMeasurement(measure.value); measure.value = ''" [disabled]="!inputIsNumber">
   Add
 </button>
+</div>
 
 <ul>
   <li *ngFor="let item of measurementList">

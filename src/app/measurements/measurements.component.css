@@ -48,11 +48,12 @@ li {
 }
 
 .addMeasurementByInput {
-  align-content:  center;
+  align-content: center;
 }
 
 .addMeasurementByButton {
-  align-content: center;
+  background: #f09983;
+  color: black;
 }
 
 .mat-icon {
@@ -71,4 +72,8 @@ h1 {
 
 a {
   color: inherit;
+}
+
+.add-section {
+  padding-left: 2.5em;
 }

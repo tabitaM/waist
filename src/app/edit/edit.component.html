@@ -1,9 +1,10 @@
-<p>
-    Details for measure with key {{key}}
-</p>
-
 <div *ngIf="measurement">
-    <h1> {{measurement.date}} </h1>
-    <h3> {{measurement.waist}} </h3>
+  <h1 class="date"> {{measurement.date}} </h1>
+</div>
 
+<div class="edit-section">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Edit measurement" [(ngModel)]="measurement.waist" (keydown.enter)="updateMeasurement(measurement)">
+  </mat-form-field>
+  <button class="update-button" mat-flat-button (click)="updateMeasurement(measurement)">Update</button>
 </div>

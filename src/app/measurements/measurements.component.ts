@@ -14,7 +14,7 @@ export class MeasurementsComponent implements OnInit {
   measurementList: Measurement[];
   inputIsNumber: boolean = false;
   editTextbox: boolean = true;
-  parentMessage = "Bla bla bla";
+  measurementSelected: Measurement;
 
   constructor(private measurementsService: MeasurementsService) {}
 
@@ -55,10 +55,6 @@ export class MeasurementsComponent implements OnInit {
       date: getCurrentDate()
     };
     this.measurementsService.add(measurement);
-  }
-
-  updateMeasurement(measurement: Measurement) {
-    this.measurementsService.update(measurement);
   }
 
   deleteMeasurement(key: string) {
