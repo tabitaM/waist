@@ -1,6 +1,5 @@
 .date {
   text-align: center;
-  font-family: 'Do Hyeon', sans-serif;
   font-size: 40px;
   font-weight: bold;
   color: white;
@@ -9,10 +8,24 @@
 }
 
 .edit-section {
-    padding-left: 2.5em;
+    padding-left: 2em;
 }
 
 .update-button {
     background: #f09983;
     color: black;
+    margin-left: 3.5em;
+}
+
+.back-button {
+  background: #f09983;
+  color: black;
+  position: absolute;
+  bottom: 8px;
+  right: 30px;
+}
+
+.example-full-width {
+  display: block;
+  width: fit-content;
 }

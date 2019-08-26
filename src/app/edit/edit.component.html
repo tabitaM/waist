@@ -4,7 +4,23 @@
 
 <div class="edit-section">
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Edit measurement" [(ngModel)]="measurement.waist" (keydown.enter)="updateMeasurement(measurement)">
+    <input matInput placeholder="Waist" [(ngModel)]="measurement.waist">
   </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+      <input matInput placeholder="Chest" [(ngModel)]="measurement.chest">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Bicep" [(ngModel)]="measurement.bicep">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+          <input matInput placeholder="Weight" [(ngModel)]="measurement.weight"
+            (keydown.enter)="updateMeasurement(measurement)">
+        </mat-form-field>
+
   <button class="update-button" mat-flat-button (click)="updateMeasurement(measurement)">Update</button>
 </div>
+
+<button class="back-button" mat-flat-button (click)="back()">Back</button>

@@ -5,7 +5,8 @@ li {
 }
 
 .measure {
-  color: white;
+  /* color: white; */
+  color: #f09983;
 }
 
 .line {
@@ -47,13 +48,14 @@ li {
   width: 100%;
 }
 
-.addMeasurementByInput {
-  align-content: center;
+.addSection {
+  margin-left: 1em;
 }
 
-.addMeasurementByButton {
+.addMeasurementButton {
   background: #f09983;
   color: black;
+  margin-left: 1em;
 }
 
 .mat-icon {
@@ -62,18 +64,27 @@ li {
 
 h1 {
   text-align: center;
-  font-family: 'Do Hyeon', sans-serif;
   font-size: 60px;
   font-weight: bold;
   color: white;
   padding-top: 1em;
-  padding-bottom: 1.5em;
+  padding-bottom: 1em;
 }
 
 a {
   color: inherit;
 }
 
-.add-section {
-  padding-left: 2.5em;
+mat-card {
+  margin: 1em;
+}
+
+.container {
+  padding-left: 2em;
+}
+
+.card {
+  display: flex;
+  padding-bottom: 0%;
+  margin-bottom: 0%;
 }

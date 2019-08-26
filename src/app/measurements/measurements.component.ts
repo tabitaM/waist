@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { Measurement } from "../model/measurement";
 import { MeasurementsService } from "../service/measurements.service";
 import { getCurrentDate } from "../utils/utils";
+import { Observable } from "rxjs";
+
 
 @Component({
   selector: "app-measurements",
@@ -11,33 +13,31 @@ import { getCurrentDate } from "../utils/utils";
 
 export class MeasurementsComponent implements OnInit {
   title = 'Waist';
+  //measurementList$: Observable<Measurement[]>;
   measurementList: Measurement[];
   inputIsNumber: boolean = false;
   editTextbox: boolean = true;
-  measurementSelected: Measurement;
 
   constructor(private measurementsService: MeasurementsService) {}
 
   //retrieve data from Firebase when the component starts
   ngOnInit() {
-    // NORMAL, syncron
-
     this.measurementsService.get().subscribe(list => {
-      // CALLBACK, asyncron
+      //CALLBACK, asyncron
       this.measurementList = list.map(item => {
         return {
           key: item.key,
-          ...item.payload.val() //payload contains all the info about objects, but not the key from FB
+          ...item.payload.val()
         };
       });
-      console.log("measurements ", this.measurementList);
-    });
+      console.log("Measurements list: ", this.measurementList);
 
-    // NORMAL, syncron
+      //NORMAL, syncron
+    })
   }
 
-  addMeasurement(waist: number): void {
-    // make sure is number (this is here because of enter action)
+  addMeasurement(waist: number, chest: number, bicep: number, weight: number): void {
+    //make sure is number (this is here because of enter action)
     if (!this.inputIsNumber) {
       return;
     }
@@ -52,6 +52,9 @@ export class MeasurementsComponent implements OnInit {
     const measurement: Measurement = {
       key: null,
       waist: +waist,
+      chest: +chest,
+      bicep: +bicep,
+      weight: +weight,
       date: getCurrentDate()
     };
     this.measurementsService.add(measurement);
@@ -95,7 +98,7 @@ export class MeasurementsComponent implements OnInit {
 
     let measurementLength = this.measurementList.length;
     if (this.measurementList[measurementLength - 1].date === getCurrentDate()) {
-      console.log(this.measurementList[measurementLength - 1].date);
+      console.log("Current date already measured: ",this.measurementList[measurementLength - 1].date);
       return true;
     }
     return false;

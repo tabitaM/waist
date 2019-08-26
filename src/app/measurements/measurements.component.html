@@ -1,30 +1,46 @@
 <h1>
   {{ title }}
 </h1>
-
-<div class="input-group mb-3" action=""></div>
-<div class="add-section">
+<div class="addSection">
   <mat-form-field class="example-full-width">
-    <input class="addMeasurementByInput" matInput placeholder="Add measurement" #measure
-      (input)="isNumber($event.target.value)" (keydown.enter)="addMeasurement(measure.value); measure.value = ''">
+    <input matInput placeholder="waist" #waist (input)="isNumber($event.target.value)">
   </mat-form-field>
-<button class="addMeasurementByButton" mat-flat-button type="submit" id="button-addon2"
-  (click)="addMeasurement(measure.value); measure.value = ''" [disabled]="!inputIsNumber">
-  Add
-</button>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="chest" #chest (input)="isNumber($event.target.value)">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="bicep" #bicep (input)="isNumber($event.target.value)">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="weight" #weight (input)="isNumber($event.target.value)"
+      (keydown.enter)="addMeasurement(waist.value, chest.value, bicep.value, weight.value); waist.value = '';chest.value = '';bicep.value = '';weight.value = ''">
+  </mat-form-field>
+
+  <button class="addMeasurementButton" mat-flat-button type="button"
+    (click)="addMeasurement(waist.value, chest.value, bicep.value, weight.value); waist.value = '';chest.value = ' ';bicep.value = '';weight.value = ''"
+    [disabled]="!inputIsNumber">
+    Add
+  </button>
 </div>
 
 <ul>
   <li *ngFor="let item of measurementList">
-    <div *ngIf="isWeekend(item.date)" class="longLine"></div>
-    <div *ngIf="!isWeekend(item.date)" class="line"></div>
-    <div>{{item.date}} <span class="measure">{{item.waist}}cm &nbsp; </span> </div>
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-subtitle>
+          <div>{{item.date}} <span class="measure">{{item.waist}}cm &nbsp; </span> </div>
+        </mat-card-subtitle>
+      </mat-card-header>
 
-    <a [routerLink]="['/edit',item.key]">
-      <mat-icon aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
-    </a>
+      <a [routerLink]="['/edit',item.key]">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
+      </a>
 
-    <mat-icon aria-hidden="false" aria-label="Example home icon" (click)="deleteMeasurement(item.key)">delete</mat-icon>
-
+      <mat-icon aria-hidden="false" aria-label="Example home icon" (click)="deleteMeasurement(item.key)">delete
+      </mat-icon>
+    </mat-card>
   </li>
-</ul>
+  <ul>

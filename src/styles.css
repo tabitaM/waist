@@ -1,8 +1,24 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
+html,
 body {
-    background-color: #e96e4f;
-    font-family: 'Do Hyeon', sans-serif;
+  height: 100%;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+body {
+  margin: 0;
+  background-color: #e96e4f;
+  font-family: 'Do Hyeon', sans-serif;
+}
+
+.mat-form-field-empty.mat-form-field-label {
+  color: #f09983;
+}
+
+.mat-focused .mat-form-field-label {
+  color: #f09983 !important;
+}
+
+.mat-form-field-ripple {
+  background-color: #f09983 !important;
+}

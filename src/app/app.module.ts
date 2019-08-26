@@ -11,16 +11,17 @@ import { AngularFireModule } from "angularfire2";
 import { AngularFireDatabaseModule } from "angularfire2/database";
 import { environment } from "../environments/environment";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { NoopAnimationsModule } from "@angular/platform-browser/animations";
+import { ReactiveFormsModule } from '@angular/forms';
 import {
   MatButtonModule,
   MatCheckboxModule,
   MatFormFieldModule,
   MatInputModule,
-  MatIconModule
+  MatIconModule,
+  MatCardModule
 } from "@angular/material";
-import { EditComponent } from './edit/edit.component';
-import { MeasurementsService } from './service/measurements.service';
+import { EditComponent } from "./edit/edit.component";
+import { MeasurementsService } from "./service/measurements.service";
 
 @NgModule({
   declarations: [AppComponent, MeasurementsComponent, EditComponent],
@@ -31,15 +32,16 @@ import { MeasurementsService } from './service/measurements.service';
     AngularFireDatabaseModule,
     NgbModule,
     BrowserAnimationsModule,
-    NoopAnimationsModule,
     MatButtonModule,
     MatCheckboxModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatCardModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', component: MeasurementsComponent },
-      { path: "edit/:key", component: EditComponent},
+      { path: "", component: MeasurementsComponent },
+      { path: "edit/:key", component: EditComponent }
     ])
   ],
   providers: [MeasurementsService],
