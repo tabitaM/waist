@@ -12,6 +12,7 @@ import { AngularFireDatabaseModule } from "angularfire2/database";
 import { environment } from "../environments/environment";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ReactiveFormsModule } from '@angular/forms';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 import {
   MatButtonModule,
   MatCheckboxModule,
@@ -22,9 +23,11 @@ import {
 } from "@angular/material";
 import { EditComponent } from "./edit/edit.component";
 import { MeasurementsService } from "./service/measurements.service";
+import { LoginComponent } from './users/login/login.component';
+import { UserService } from './service/user.service';
 
 @NgModule({
-  declarations: [AppComponent, MeasurementsComponent, EditComponent],
+  declarations: [AppComponent, MeasurementsComponent, EditComponent, LoginComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -39,12 +42,14 @@ import { MeasurementsService } from "./service/measurements.service";
     MatIconModule,
     MatCardModule,
     ReactiveFormsModule,
+    AngularFireAuthModule,
     RouterModule.forRoot([
-      { path: "", component: MeasurementsComponent },
+      { path: "", component: LoginComponent },
+      { path: "measurements", component: MeasurementsComponent },
       { path: "edit/:key", component: EditComponent }
     ])
   ],
-  providers: [MeasurementsService],
+  providers: [MeasurementsService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
