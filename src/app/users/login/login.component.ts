@@ -12,16 +12,17 @@ import { Router } from "@angular/router";
 export class LoginComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   login() {
+    const uid = firebase.auth().currentUser.uid;
     this.userService
       .login()
       .then(res => {
-        this.router.navigate(["measurements"]);
+        this.router.navigate([uid,'/measurements']);
         console.log("User info is: ", res);
       })
-      .catch(err => console.log(err));
   }
 
   logout() {

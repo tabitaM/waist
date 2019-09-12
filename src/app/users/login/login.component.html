@@ -1,24 +1,8 @@
-<p>login works!</p>
-
-<div class="header">
   <h1>
-    Angular Firebase Google Login
+    Google Login
   </h1>
-</div>
-<button (click)="login()">Login </button>
+<a [routerLink]="[uid,'/measurements']">
+  <button (click)="login()">Login </button>
+</a>
 
 <button (click)="logout()">Logout</button>
-
-<!-- <div *ngIf="user.uid | async as uid; else login">
-    The user is logged in. {{uid}}
-    <div *ngIf="user.isAdmin | async">
-        The user is also ADMIN 
-    </div>
-    <div>
-        <button (click)="user.logout()">Logout</button>
-    </div>
-</div>
-
-<ng-template #login>
-    You need to login: <button (click)="user.login()">Login</button>
-</ng-template> -->

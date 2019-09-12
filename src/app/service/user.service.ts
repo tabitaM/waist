@@ -18,13 +18,10 @@ export class UserService {
   //     }
   //   })
   // );
-  // isAdmin = observableOf(true);
 
   constructor(private afAuth: AngularFireAuth) { }
 
   login() {
-    // this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider);
-
     return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
   }
 

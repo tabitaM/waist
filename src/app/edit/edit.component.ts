@@ -3,6 +3,9 @@ import { Measurement } from "../model/measurement";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MeasurementsService } from "../service/measurements.service";
 import { Location } from "@angular/common";
+import { UserService } from '../service/user.service';
+import * as firebase from "firebase/app";
+
 
 @Component({
   selector: "app-edit",
@@ -24,7 +27,7 @@ export class EditComponent implements OnInit {
     private route: ActivatedRoute,
     private measurementsService: MeasurementsService,
     private router: Router,
-    private location: Location
+    private location: Location,
   ) {}
 
   ngOnInit(): void {
@@ -49,7 +52,7 @@ export class EditComponent implements OnInit {
   updateMeasurement(measurement: Measurement) {
     this.measurementsService.update(measurement);
     alert("Measurement was successfully updated!");
-    this.router.navigate([""]);
+    this.router.navigate(["measurements"]);
   }
 
   back() {
