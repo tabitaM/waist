@@ -45,7 +45,8 @@ import { UserService } from './service/user.service';
     AngularFireAuthModule,
     RouterModule.forRoot([
       { path: "", component: LoginComponent },
-      { path: ":uid/measurements", component: MeasurementsComponent },
+      //{ path: ":uid/measurements", component: MeasurementsComponent },
+      { path: "measurements", component: MeasurementsComponent },
       { path: "edit/:key", component: EditComponent }
     ])
   ],

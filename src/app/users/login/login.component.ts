@@ -16,20 +16,20 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    const uid = firebase.auth().currentUser.uid;
+    //const uid = firebase.auth().currentUser.uid;
+    //console.log("UID:", uid);
     this.userService
       .login()
       .then(res => {
-        this.router.navigate([uid,'/measurements']);
         console.log("User info is: ", res);
       })
   }
 
-  logout() {
-    this.userService
-      .logout()
-      .then(res => {
-        console.log("User info is: ", res);
-      })
-  }
+  // logout() {
+  //   this.userService
+  //     .logout()
+  //     .then(res => {
+  //       console.log("User info is: ", res);
+  //     })
+  // }
 }

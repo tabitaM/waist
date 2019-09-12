@@ -3,6 +3,8 @@ import { Measurement } from "../model/measurement";
 import { MeasurementsService } from "../service/measurements.service";
 import { getCurrentDate } from "../utils/utils";
 import { Observable } from "rxjs";
+import { UserService } from '../service/user.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,7 +20,10 @@ export class MeasurementsComponent implements OnInit {
   inputIsNumber: boolean = false;
   editTextbox: boolean = true;
 
-  constructor(private measurementsService: MeasurementsService) {}
+  constructor(
+    private measurementsService: MeasurementsService, 
+    private userService: UserService,
+    private router: Router) {}
 
   //retrieve data from Firebase when the component starts
   ngOnInit() {
@@ -102,5 +107,12 @@ export class MeasurementsComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  logout() {
+    this.userService.logout().then(res => {
+      console.log("User info:", res);
+    });
+    this.router.navigate(['']);
   }
 }
