@@ -88,3 +88,11 @@ mat-card {
   padding-bottom: 0%;
   margin-bottom: 0%;
 }
+
+.logoutButton {
+  background: #f09983;
+  color: black;
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+}

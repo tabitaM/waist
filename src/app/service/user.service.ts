@@ -1,31 +1,30 @@
-import { Injectable } from '@angular/core';
-import { of as observableOf } from 'rxjs';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { map } from 'rxjs/operators';
-import { auth } from 'firebase';
+import { Injectable } from "@angular/core";
+import { AngularFireAuth } from "angularfire2/auth";
+import { auth } from "firebase";
+import * as firebase from "firebase/app";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class UserService {
-  // uid = this.afAuth.authState.pipe(
-  //   map(authState => {
-  //     if(!authState) {
-  //       return null;
-  //     }
-  //     else {
-  //       return authState.uid; 
-  //     }
-  //   })
-  // );
+  uid = null;
+  constructor(private afAuth: AngularFireAuth) {}
 
-  constructor(private afAuth: AngularFireAuth) { }
-
-  login() {
-    return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
+  async login() {
+    const {user} = await this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
+    this.uid = user.uid;
+    this.afAuth.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+    return user;
   }
 
   logout() {
     return this.afAuth.auth.signOut();
+  }
+
+  isAuthenticated(): boolean{
+    if(!this.uid){
+      return false;
+    }
+    return true;
   }
 }

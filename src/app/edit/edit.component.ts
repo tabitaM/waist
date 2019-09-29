@@ -4,8 +4,6 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { MeasurementsService } from "../service/measurements.service";
 import { Location } from "@angular/common";
 import { UserService } from '../service/user.service';
-import * as firebase from "firebase/app";
-
 
 @Component({
   selector: "app-edit",
@@ -28,14 +26,14 @@ export class EditComponent implements OnInit {
     private measurementsService: MeasurementsService,
     private router: Router,
     private location: Location,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
     // firebase
     this.measurement.key = this.route.snapshot.paramMap.get("key");
-
     this.measurementsService
-      .getMeasure(this.measurement.key)
+      .getMeasure(this.userService.uid, this.measurement.key)
       .subscribe(item => {
         this.measurement = {
           ...this.measurement,

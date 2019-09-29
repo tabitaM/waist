@@ -2,10 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { Measurement } from "../model/measurement";
 import { MeasurementsService } from "../service/measurements.service";
 import { getCurrentDate } from "../utils/utils";
-import { Observable } from "rxjs";
 import { UserService } from '../service/user.service';
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: "app-measurements",
@@ -14,8 +12,7 @@ import { Router } from '@angular/router';
 })
 
 export class MeasurementsComponent implements OnInit {
-  title = 'Waist';
-  //measurementList$: Observable<Measurement[]>;
+  title = 'Your Measurements';
   measurementList: Measurement[];
   inputIsNumber: boolean = false;
   editTextbox: boolean = true;
@@ -27,7 +24,8 @@ export class MeasurementsComponent implements OnInit {
 
   //retrieve data from Firebase when the component starts
   ngOnInit() {
-    this.measurementsService.get().subscribe(list => {
+    console.log("UID of user: ", this.userService.uid);
+    this.measurementsService.get(this.userService.uid).subscribe(list => {
       //CALLBACK, asyncron
       this.measurementList = list.map(item => {
         return {

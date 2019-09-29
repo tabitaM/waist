@@ -13,23 +13,21 @@ export class LoginComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit() {
+    // if(this.userService.uid) {
+    //   this.router.navigate(['measurements']);
+    // }
+    // if(firebase.auth().currentUser.uid) {
+    //   this.router.navigate(['measurements']);
+    // }
+     console.log("User is logged in with UID: ",this.userService.uid);
   }
 
   login() {
-    //const uid = firebase.auth().currentUser.uid;
-    //console.log("UID:", uid);
     this.userService
       .login()
       .then(res => {
+        this.router.navigate(['/measurements']);
         console.log("User info is: ", res);
       })
   }
-
-  // logout() {
-  //   this.userService
-  //     .logout()
-  //     .then(res => {
-  //       console.log("User info is: ", res);
-  //     })
-  // }
 }

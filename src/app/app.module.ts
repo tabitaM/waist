@@ -1,12 +1,10 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { NgModule, APP_INITIALIZER } from "@angular/core";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-
 import { AppComponent } from "./app.component";
 import { MeasurementsComponent } from "./measurements/measurements.component";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
-
 import { AngularFireModule } from "angularfire2";
 import { AngularFireDatabaseModule } from "angularfire2/database";
 import { environment } from "../environments/environment";
@@ -25,6 +23,8 @@ import { EditComponent } from "./edit/edit.component";
 import { MeasurementsService } from "./service/measurements.service";
 import { LoginComponent } from './users/login/login.component';
 import { UserService } from './service/user.service';
+import { initializeApp } from 'firebase';
+import { AuthGuardService as AuthGuard, AuthGuardService} from './service/auth-guard.service';
 
 @NgModule({
   declarations: [AppComponent, MeasurementsComponent, EditComponent, LoginComponent],
@@ -45,12 +45,11 @@ import { UserService } from './service/user.service';
     AngularFireAuthModule,
     RouterModule.forRoot([
       { path: "", component: LoginComponent },
-      //{ path: ":uid/measurements", component: MeasurementsComponent },
-      { path: "measurements", component: MeasurementsComponent },
-      { path: "edit/:key", component: EditComponent }
+      { path: "measurements", component: MeasurementsComponent, canActivate: [AuthGuard] },
+      { path: "edit/:key", component: EditComponent, canActivate: [AuthGuard] }
     ])
   ],
-  providers: [MeasurementsService, UserService],
+  providers: [MeasurementsService, UserService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

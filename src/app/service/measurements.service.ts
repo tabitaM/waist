@@ -6,7 +6,8 @@ import {
   AngularFireObject
 } from "angularfire2/database";
 import { getCurrentDate } from "../utils/utils";
-import { Observable } from "rxjs";
+import { UserService } from './user.service';
+
 
 @Injectable({
   providedIn: "root"
@@ -14,18 +15,17 @@ import { Observable } from "rxjs";
 export class MeasurementsService {
   firebaseMeasurements: AngularFireList<any>;
   measureSelected: AngularFireObject<Measurement> = null;
-  private basePath: string = "/measurements";
   measurementList: Measurement[];
 
-  constructor(private firebase: AngularFireDatabase) {}
+  constructor(private fb: AngularFireDatabase, private userService: UserService) {}
 
-  get() {
-    this.firebaseMeasurements = this.firebase.list("/measurements");
+  get(uid: string) {
+    this.firebaseMeasurements = this.fb.list(uid);
     return this.firebaseMeasurements.snapshotChanges();
   }
 
-  getMeasure(key: string) {
-    this.measureSelected = this.firebase.object(`/measurements/${key}`);
+  getMeasure(uid: string, key: string) {
+    this.measureSelected = this.fb.object(`${uid}/${key}`);
     return this.measureSelected.valueChanges();
   }
 
