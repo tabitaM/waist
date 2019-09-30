@@ -1,23 +1,25 @@
-import { Injectable } from "@angular/core";
-import { Measurement } from "../model/measurement";
+import { Injectable } from '@angular/core';
+import { Measurement } from '../model/measurement';
 import {
   AngularFireDatabase,
   AngularFireList,
   AngularFireObject
-} from "angularfire2/database";
-import { getCurrentDate } from "../utils/utils";
-import { UserService } from './user.service';
-
+} from 'angularfire2/database';
+import { getCurrentDate } from '../utils/utils';
+import { AuthService } from './auth.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class MeasurementsService {
   firebaseMeasurements: AngularFireList<any>;
   measureSelected: AngularFireObject<Measurement> = null;
   measurementList: Measurement[];
 
-  constructor(private fb: AngularFireDatabase, private userService: UserService) {}
+  constructor(
+    private fb: AngularFireDatabase,
+    private authService: AuthService
+  ) {}
 
   get(uid: string) {
     this.firebaseMeasurements = this.fb.list(uid);

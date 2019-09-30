@@ -1,24 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from './service/user.service';
+import { AuthService } from './service/auth.service';
 import { Router } from '@angular/router';
-import * as firebase from "firebase";
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',  
+  templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-
-export class AppComponent implements OnInit{
-  constructor(userService: UserService, router: Router) {}
+export class AppComponent implements OnInit {
+  constructor(authService: AuthService, router: Router) {}
   ngOnInit() {
     // if(firebase.auth().currentUser.uid) {
-      
     // }
-    // if(this.userService.uid) {
+    // if(this.authService.uid) {
     //   this.router.navigate(['measurements']);
     // }
   }
 }
-
- 

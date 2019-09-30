@@ -1,53 +1,65 @@
-import { Component, OnInit } from "@angular/core";
-import { Measurement } from "../model/measurement";
-import { MeasurementsService } from "../service/measurements.service";
-import { getCurrentDate } from "../utils/utils";
-import { UserService } from '../service/user.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Measurement } from '../model/measurement';
+import { MeasurementsService } from '../service/measurements.service';
+import { getCurrentDate } from '../utils/utils';
+import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: "app-measurements",
-  templateUrl: "./measurements.component.html",
-  styleUrls: ["./measurements.component.css"]
+  selector: 'app-measurements',
+  templateUrl: './measurements.component.html',
+  styleUrls: ['./measurements.component.css']
 })
-
-export class MeasurementsComponent implements OnInit {
+export class MeasurementsComponent implements OnInit, OnDestroy {
   title = 'Your Measurements';
   measurementList: Measurement[];
-  inputIsNumber: boolean = false;
-  editTextbox: boolean = true;
+  inputIsNumber = false;
+  editTextbox = true;
+  private userSubscription: Subscription;
 
   constructor(
-    private measurementsService: MeasurementsService, 
-    private userService: UserService,
-    private router: Router) {}
+    private measurementsService: MeasurementsService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
-  //retrieve data from Firebase when the component starts
+  // retrieve data from Firebase when the component starts
   ngOnInit() {
-    console.log("UID of user: ", this.userService.uid);
-    this.measurementsService.get(this.userService.uid).subscribe(list => {
-      //CALLBACK, asyncron
-      this.measurementList = list.map(item => {
-        return {
-          key: item.key,
-          ...item.payload.val()
-        };
+    this.userSubscription = this.authService.user.subscribe(user => {
+      this.measurementsService.get(user.uid).subscribe(list => {
+        this.measurementList = list.map(item => {
+          return {
+            key: item.key,
+            ...item.payload.val()
+          };
+        });
+        console.log(
+          `User: ${user.uid} has measurements list: `,
+          this.measurementList
+        );
       });
-      console.log("Measurements list: ", this.measurementList);
-
-      //NORMAL, syncron
-    })
+    });
   }
 
-  addMeasurement(waist: number, chest: number, bicep: number, weight: number): void {
-    //make sure is number (this is here because of enter action)
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
+  }
+
+  addMeasurement(
+    waist: number,
+    chest: number,
+    bicep: number,
+    weight: number
+  ): void {
+    // make sure is number (this is here because of enter action)
     if (!this.inputIsNumber) {
       return;
     }
 
     // check if we have a waist today
     if (this.isTodayAlreadyMeasured()) {
-      alert("You already set a measurement for today!");
+      alert('You already set a measurement for today!');
       return;
     }
 
@@ -64,7 +76,7 @@ export class MeasurementsComponent implements OnInit {
   }
 
   deleteMeasurement(key: string) {
-    if (confirm("Are you sure you want to delete this record?")) {
+    if (confirm('Are you sure you want to delete this record?')) {
       this.measurementsService.delete(key);
     }
   }
@@ -86,8 +98,8 @@ export class MeasurementsComponent implements OnInit {
   }
 
   isWeekend(date: string): boolean {
-    var day = date.split(",")[0];
-    if (day === "Saturday" || day === "Sunday") {
+    const day = date.split(',')[0];
+    if (day === 'Saturday' || day === 'Sunday') {
       return true;
     }
 
@@ -99,18 +111,20 @@ export class MeasurementsComponent implements OnInit {
       return false;
     }
 
-    let measurementLength = this.measurementList.length;
+    const measurementLength = this.measurementList.length;
     if (this.measurementList[measurementLength - 1].date === getCurrentDate()) {
-      console.log("Current date already measured: ",this.measurementList[measurementLength - 1].date);
+      console.log(
+        'Current date already measured: ',
+        this.measurementList[measurementLength - 1].date
+      );
       return true;
     }
     return false;
   }
 
   logout() {
-    this.userService.logout().then(res => {
-      console.log("User info:", res);
+    this.authService.logout().then(() => {
+      this.router.navigate(['/login']);
     });
-    this.router.navigate(['']);
   }
 }
