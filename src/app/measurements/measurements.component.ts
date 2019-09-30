@@ -35,7 +35,7 @@ export class MeasurementsComponent implements OnInit, OnDestroy {
           };
         });
         console.log(
-          `User: ${user.uid} has measurements list: `,
+          `User: ${user.displayName} with Id: ${user.uid} has measurements list: `,
           this.measurementList
         );
       });
