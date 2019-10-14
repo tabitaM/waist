@@ -28,12 +28,14 @@ export class MeasurementsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSubscription = this.authService.user.subscribe(user => {
       this.measurementsService.get(user.uid).subscribe(list => {
-        this.measurementList = list.map(item => {
-          return {
-            key: item.key,
-            ...item.payload.val()
-          };
-        });
+        this.measurementList = list
+          .map(item => {
+            return {
+              key: item.key,
+              ...item.payload.val()
+            };
+          })
+          .reverse();
         console.log(
           `User: ${user.displayName} with Id: ${user.uid} has measurements list: `,
           this.measurementList
@@ -112,10 +114,10 @@ export class MeasurementsComponent implements OnInit, OnDestroy {
     }
 
     const measurementLength = this.measurementList.length;
-    if (this.measurementList[measurementLength - 1].date === getCurrentDate()) {
+    if (this.measurementList[0].date === getCurrentDate()) {
       console.log(
         'Current date already measured: ',
-        this.measurementList[measurementLength - 1].date
+        this.measurementList[0].date
       );
       return true;
     }

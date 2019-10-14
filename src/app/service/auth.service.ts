@@ -10,13 +10,15 @@ export class AuthService {
   user: Observable<User>;
 
   constructor(private afAuth: AngularFireAuth) {
-    this.user = this.afAuth.authState;
+    this.user = this.afAuth.user;
   }
 
-  public async loginWithGoogle(): Promise<firebase.auth.UserCredential | void> {
-    return this.afAuth.auth
-      .signInWithPopup(new auth.GoogleAuthProvider())
-      .catch(error => console.error(error));
+  async loginWithGoogle(): Promise<firebase.auth.UserCredential | void> {
+    try {
+      return this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   logout() {

@@ -16,9 +16,21 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  login() {
-    this.authService.loginWithGoogle().then(() => {
+  // New way of writting Promise. Await
+  async login() {
+    try {
+      await this.authService.loginWithGoogle();
       this.router.navigate(['/measurements']);
-    });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  // // VS // //
+  // Old way of writting Promise. Then
+  loginOldPromise() {
+    this.authService
+      .loginWithGoogle()
+      .then(() => this.router.navigate(['/measurements']));
   }
 }
