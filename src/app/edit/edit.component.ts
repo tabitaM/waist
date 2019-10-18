@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class EditComponent implements OnInit, OnDestroy {
   private userSubscription: Subscription;
-  private measurement: Measurement = {
+  public measurement: Measurement = {
     key: null,
     waist: null,
     date: null,
