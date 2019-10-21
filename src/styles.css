@@ -7,8 +7,13 @@ body {
 
 body {
   margin: 0;
-  background-color: #e96e4f;
-  font-family: 'Do Hyeon', sans-serif;
+  background-color: #1c1c20;
+  color: #49494d;
+  font-family: 'Monda', sans-serif;
+}
+
+.colorPrimary {
+  color: #f3591e;
 }
 
 .mat-form-field-empty.mat-form-field-label {

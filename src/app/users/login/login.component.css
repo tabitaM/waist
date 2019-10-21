@@ -1,14 +1,27 @@
-.loginButton {
-    color: #f09983;
-    font-family: 'Do Hyeon', sans-serif;
-    border-radius: 10%;
-    margin-left: 2em;
-    margin-top: 4em;
-    font-size : 15px; 
+.text-center {
+  text-align: center;
 }
 
-h1 {
-    color: white;
-    text-align: center;
-    font-size: 4em;
+.title {
+  font-weight: bold;
+  margin-top: 50px;
+  font-size: 5em;
+}
+
+.subTitle {
+  font-size: 1.8em;
+}
+
+.loginButton {
+  background-color: #49494d;
+  color: #fff;
+}
+
+.content {
+  margin-top: 10em;
+  text-align: center;
+}
+
+img {
+  margin-right: 10px;
 }
