@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   }
 
   // New way of writting Promise. Await
-  async login() {
+  async loginWithGoogle() {
     try {
       await this.authService.loginWithGoogle();
       this.router.navigate(['/measurements']);
@@ -34,16 +34,16 @@ export class LoginComponent implements OnInit {
       .then(() => this.router.navigate(['/measurements']));
   }
 
-  async signIn(email: string, password: string) {
+  async loginWithEmailPassword(email: string, password: string) {
     try {
       await this.authService.signInWithEmailAndPassword(email, password);
       this.router.navigate(['/measurements']);
     } catch (err) {
-      console.log(err);
+      alert(err);
     }
   }
 
-  async signUp(email: string, password: string) {
+  async registerWithEmailPassword(email: string, password: string) {
     try {
       await this.authService.signUpWithEmailAndPassword(email, password);
       this.router.navigate(['/measurements']);
