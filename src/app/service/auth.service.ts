@@ -21,6 +21,28 @@ export class AuthService {
     }
   }
 
+  async signInWithEmailAndPassword(
+    email: string,
+    password: string
+  ): Promise<firebase.auth.UserCredential> {
+    try {
+      return this.afAuth.auth.signInWithEmailAndPassword(email, password);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async signUpWithEmailAndPassword(
+    email: string,
+    password: string
+  ): Promise<firebase.auth.UserCredential> {
+    try {
+      return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   logout() {
     return this.afAuth.auth.signOut();
   }

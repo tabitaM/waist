@@ -3,11 +3,76 @@
 
 <div class="content">
   <button mat-raised-button class="loginButton" (click)="login()">
-    <img
-      width="20px"
-      alt='Google "G" Logo'
-      src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
-    />
+    <img width="20px" alt='Google "G" Logo'
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
     Login with Google
   </button>
+
+  <button mat-raised-button class="loginButton" data-target="#signInModal" data-toggle="modal">
+    Sign In
+  </button>
+
+  <button mat-raised-button class="loginButton" data-target="#signUpModal" data-toggle="modal">
+    Sign Up
+  </button>
+</div>
+
+<div id="signInModal">
+  <mat-card>
+    <mat-card-title>Login</mat-card-title>
+    <mat-card-content>
+      <form>
+        <p>
+          <mat-form-field>
+            <input type="text" matInput placeholder="Username" [(ngModel)]='email'
+              [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+        </p>
+
+        <p>
+          <mat-form-field>
+            <input type="password" matInput placeholder="Password" [(ngModel)]='password'
+              [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+        </p>
+
+        <p *ngIf="error" class="error">
+          {{ error }}
+        </p>
+
+        <button mat-button (click)="signIn(email,password)">Login</button>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div id="signUpModal">
+  <mat-card>
+    <mat-card-title>Sign In</mat-card-title>
+    <mat-card-content>
+      <form>
+        <p>
+          <mat-form-field>
+            <input type="text" matInput placeholder="Username" [(ngModel)]='email'
+              [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+        </p>
+
+        <p>
+          <mat-form-field>
+            <input type="password" matInput placeholder="Password" [(ngModel)]='password'
+              [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+        </p>
+
+        <p *ngIf="error" class="error">
+          {{ error }}
+        </p>
+
+        <button mat-button (click)="signUp(email,password)">Sign Up</button>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
 </div>

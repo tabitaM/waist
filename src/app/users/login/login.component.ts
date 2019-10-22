@@ -33,4 +33,22 @@ export class LoginComponent implements OnInit {
       .loginWithGoogle()
       .then(() => this.router.navigate(['/measurements']));
   }
+
+  async signIn(email: string, password: string) {
+    try {
+      await this.authService.signInWithEmailAndPassword(email, password);
+      this.router.navigate(['/measurements']);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async signUp(email: string, password: string) {
+    try {
+      await this.authService.signUpWithEmailAndPassword(email, password);
+      this.router.navigate(['/measurements']);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }
