@@ -51,4 +51,13 @@ export class LoginComponent implements OnInit {
       console.log(err);
     }
   }
+
+  async loginWithFacebook() {
+    try {
+      await this.authService.loginWithFacebook();
+      this.router.navigate(['/measurements']);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }

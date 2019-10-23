@@ -43,6 +43,14 @@ export class AuthService {
     }
   }
 
+  async loginWithFacebook(): Promise<firebase.auth.UserCredential | void> {
+    try {
+      return this.afAuth.auth.signInWithPopup(new auth.FacebookAuthProvider());
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   logout() {
     return this.afAuth.auth.signOut();
   }
