@@ -16,12 +16,7 @@
           <input matInput type="password" #password />
         </mat-form-field>
 
-        <button
-          id="login"
-          color="primary"
-          mat-raised-button
-          (click)="loginWithEmailPassword(email.value, password.value)"
-        >
+        <button id="login" mat-raised-button (click)="loginWithEmailPassword(email.value, password.value)">
           Login
         </button>
       </div>
@@ -30,19 +25,39 @@
 
       <div id="social">
         <button class="socialButton" mat-fab (click)="loginWithGoogle()">
-          <img
-            width="30px"
-            alt='Google "G" Logo'
-            src="../../../assets/google.png"
-          />
+          <img width="30px" alt='Google "G" Logo' src="../../../assets/google.png" />
         </button>
 
         <button class="socialButton" mat-fab (click)="loginWithFacebook()">
-          <img
-            width="30px"
-            alt='Google "G" Logo'
-            src="../../../assets/facebook.png"
-          />
+          <img width="30px" alt='Google "G" Logo' src="../../../assets/facebook.png" />
+        </button>
+      </div>
+
+      <p>Not a member?
+        <a data-target="#registerModal" data-toggle="modal">Sign up now </a>
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+<div class="content" id="registerModal" tabindex="-1">
+  <mat-card>
+    <mat-card-title>Register</mat-card-title>
+    <mat-card-content>
+      <div id="form">
+        <mat-form-field appearance="outline">
+          <mat-label>email</mat-label>
+          <input matInput placeholder="example@domain.com" #email />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>password</mat-label>
+          <input matInput type="password" #password />
+        </mat-form-field>
+
+        <button id="login" mat-raised-button (click)="registerWithEmailPassword(email.value, password.value)">
+          Register
         </button>
       </div>
     </mat-card-content>
