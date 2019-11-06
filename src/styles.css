@@ -9,21 +9,9 @@ body {
   margin: 0;
   background-color: #1c1c20;
   color: #65656b;
-  font-family: 'Monda', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .colorPrimary {
   color: #f3591e;
-}
-
-.mat-form-field-empty.mat-form-field-label {
-  color: #f09983;
-}
-
-.mat-focused .mat-form-field-label {
-  color: #f09983 !important;
-}
-
-.mat-form-field-ripple {
-  background-color: #f09983 !important;
 }

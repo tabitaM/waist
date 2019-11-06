@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/service/auth.service';
 import { Router } from '@angular/router';
+import { RegisterComponent } from '../register/register.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { SnackbarService } from '../../service/snackbar.service';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +11,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    public dialog: MatDialog,
+    private router: Router,
+    private snackbarService: SnackbarService
+  ) {}
 
   async ngOnInit() {
     if (this.authService.user) {
@@ -27,6 +35,7 @@ export class LoginComponent implements OnInit {
   }
 
   // // VS // //
+
   // Old way of writting Promise. Then
   loginOldPromise() {
     this.authService
@@ -35,21 +44,22 @@ export class LoginComponent implements OnInit {
   }
 
   async loginWithEmailPassword(email: string, password: string) {
+    // validate
+    if (!email || !password) {
+      this.snackbarService.show('Email or password cannot be empty');
+      return;
+    }
+
     try {
       await this.authService.signInWithEmailAndPassword(email, password);
       this.router.navigate(['/measurements']);
     } catch (err) {
-      alert(err);
+      this.snackbarService.show(err);
     }
   }
 
-  async registerWithEmailPassword(email: string, password: string) {
-    try {
-      await this.authService.signUpWithEmailAndPassword(email, password);
-      this.router.navigate(['/measurements']);
-    } catch (err) {
-      console.log(err);
-    }
+  openRegisterDialog(): void {
+    this.dialog.open(RegisterComponent, new MatDialogConfig());
   }
 
   async loginWithFacebook() {

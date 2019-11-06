@@ -5,6 +5,7 @@ import { getCurrentDate } from '../utils/utils';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { SnackbarService } from '../service/snackbar.service';
 
 @Component({
   selector: 'app-measurements',
@@ -12,7 +13,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./measurements.component.css']
 })
 export class MeasurementsComponent implements OnInit, OnDestroy {
-  title = 'Your Measurements';
+  title = 'your measurements.';
   measurementList: Measurement[];
   inputIsNumber = false;
   editTextbox = true;
@@ -21,7 +22,8 @@ export class MeasurementsComponent implements OnInit, OnDestroy {
   constructor(
     private measurementsService: MeasurementsService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private snackbarService: SnackbarService
   ) {}
 
   // retrieve data from Firebase when the component starts
@@ -61,7 +63,7 @@ export class MeasurementsComponent implements OnInit, OnDestroy {
 
     // check if we have a waist today
     if (this.isTodayAlreadyMeasured()) {
-      alert('You already set a measurement for today!');
+      this.snackbarService.show('You already set a measurement for today!');
       return;
     }
 
@@ -75,12 +77,6 @@ export class MeasurementsComponent implements OnInit, OnDestroy {
       date: getCurrentDate()
     };
     this.measurementsService.add(measurement);
-  }
-
-  deleteMeasurement(key: string) {
-    if (confirm('Are you sure you want to delete this record?')) {
-      this.measurementsService.delete(key);
-    }
   }
 
   // // // // // VALIDATIONS // // // // //

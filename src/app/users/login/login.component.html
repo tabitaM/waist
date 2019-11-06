@@ -1,65 +1,80 @@
-<div class="title text-center colorPrimary">WAIST</div>
-<div class="subTitle text-center">adding measurements daily</div>
+<div class="container">
+  <div class="content">
+    <div class="brand">
+      <div class="title colorPrimary">waist</div>
+      <div class="subTitle">adding measurements daily</div>
+    </div>
 
-<div class="content">
-  <mat-card>
-    <mat-card-title>Login</mat-card-title>
-    <mat-card-content>
-      <div id="form">
-        <mat-form-field appearance="outline">
-          <mat-label>email</mat-label>
-          <input matInput placeholder="example@domain.com" #email />
-        </mat-form-field>
+    <div class="login">
+      <mat-card>
+        <mat-card-title>LOGIN</mat-card-title>
+        <form>
+          <mat-card-content>
+            <mat-form-field appearance="outline">
+              <mat-label>email</mat-label>
+              <input
+                matInput
+                placeholder="example@domain.com"
+                autocomplete="username"
+                #email
+              />
+            </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>password</mat-label>
-          <input matInput type="password" #password />
-        </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>password</mat-label>
+              <input
+                matInput
+                type="password"
+                autocomplete="current-password"
+                #password
+              />
+            </mat-form-field>
 
-        <button id="login" mat-raised-button (click)="loginWithEmailPassword(email.value, password.value)">
-          Login
-        </button>
-      </div>
+            <button
+              class="loginButton"
+              mat-raised-button
+              (click)="loginWithEmailPassword(email.value, password.value)"
+            >
+              Login
+            </button>
 
-      <div id="separator">OR</div>
+            <div class="separator">
+              <hr />
+              <div>OR</div>
+              <hr />
+            </div>
 
-      <div id="social">
-        <button class="socialButton" mat-fab (click)="loginWithGoogle()">
-          <img width="30px" alt='Google "G" Logo' src="../../../assets/google.png" />
-        </button>
+            <div class="social">
+              <div>Login/Sign up with</div>
 
-        <button class="socialButton" mat-fab (click)="loginWithFacebook()">
-          <img width="30px" alt='Google "G" Logo' src="../../../assets/facebook.png" />
-        </button>
-      </div>
+              <button class="socialButton" mat-fab (click)="loginWithGoogle()">
+                <img
+                  width="30px"
+                  alt='Google "G" Logo'
+                  src="../../../assets/google.png"
+                />
+              </button>
 
-      <p>Not a member?
-        <a data-target="#registerModal" data-toggle="modal">Sign up now </a>
-      </p>
-    </mat-card-content>
-  </mat-card>
-</div>
+              <button
+                class="socialButton"
+                mat-fab
+                (click)="loginWithFacebook()"
+              >
+                <img
+                  width="30px"
+                  alt='Google "G" Logo'
+                  src="../../../assets/facebook.png"
+                />
+              </button>
+            </div>
 
-
-<div class="content" id="registerModal" tabindex="-1">
-  <mat-card>
-    <mat-card-title>Register</mat-card-title>
-    <mat-card-content>
-      <div id="form">
-        <mat-form-field appearance="outline">
-          <mat-label>email</mat-label>
-          <input matInput placeholder="example@domain.com" #email />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>password</mat-label>
-          <input matInput type="password" #password />
-        </mat-form-field>
-
-        <button id="login" mat-raised-button (click)="registerWithEmailPassword(email.value, password.value)">
-          Register
-        </button>
-      </div>
-    </mat-card-content>
-  </mat-card>
+            <div class="signUp">
+              Not a member?
+              <a (click)="openRegisterDialog()">Sign up now</a>
+            </div>
+          </mat-card-content>
+        </form>
+      </mat-card>
+    </div>
+  </div>
 </div>

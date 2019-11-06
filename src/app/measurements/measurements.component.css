@@ -1,86 +1,45 @@
-li {
+.container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* investigate why I need to duplicate this ?? */
+  color: #65656b;
+  background-color: #1c1c20;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.sidenavContainer {
   display: flex;
-  align-items: center;
-  color: #f09983;
+  flex-direction: column;
+  padding: 40px;
 }
 
-.measure {
-  /* color: white; */
-  color: #f09983;
-}
-
-.line {
-  height: 10px;
-  width: 50px;
-  background: #f09983;
-  margin-right: 10px;
-}
-
-.longLine {
-  height: 10px;
-  width: 70px;
-  background: #f09983;
-  margin-right: 10px;
-}
-
-.row {
-  padding-bottom: 2em;
-}
-
-.deleteMeasurement {
-  display: block;
-  max-width: 300px;
-  margin: auto;
-}
-
-.deleteIcon {
-  margin-left: 10px;
-  cursor: pointer;
-}
-
-.col-4 {
-  display: inline-flex;
-}
-
-.example-form {
-  min-width: 150px;
-  max-width: 500px;
-  width: 100%;
-}
-
-.addSection {
-  margin-left: 1em;
+.sidenav {
+  color: #fff;
+  background-color: #28282e;
+  /* investigate why I need to duplicate this ?? */
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
 }
 
 .addMeasurementButton {
-  background: #f09983;
-  color: black;
-  margin-left: 1em;
+  background: #f3591e;
+  color: #fff;
 }
 
-.mat-icon {
-  cursor: pointer;
+.pageContainer {
+  padding-left: 100px;
 }
 
-h1 {
+.title {
   text-align: center;
-  font-size: 60px;
-  font-weight: bold;
-  color: white;
-  padding-top: 1em;
-  padding-bottom: 1em;
-}
-
-a {
-  color: inherit;
-}
-
-mat-card {
-  margin: 1em;
-}
-
-.container {
-  padding-left: 2em;
+  font-size: 20px;
+  margin: 70px 0px 100px 0px;
+  color: #fff;
 }
 
 .card {
@@ -89,9 +48,17 @@ mat-card {
   margin-bottom: 0%;
 }
 
+li {
+  display: flex;
+  align-items: center;
+  color: #f3591e;
+}
+
+mat-card {
+  margin: 1em;
+}
+
 .logoutButton {
-  background: #f09983;
-  color: black;
   position: absolute;
   bottom: 40px;
   right: 40px;

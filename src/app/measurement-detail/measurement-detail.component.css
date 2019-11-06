@@ -1,0 +1,45 @@
+.measurements {
+  display: flex;
+  margin-top: 20px;
+  width: fit-content;
+}
+
+.measurements:hover .edit {
+  display: flex;
+}
+
+.content {
+  display: flex;
+}
+
+.value {
+  display: flex;
+  font-size: 35px;
+  font-weight: bold;
+  color: #f3591e;
+}
+
+.description {
+  margin: 20px 20px 0px 5px;
+  font-size: 15px;
+  color: #65656b;
+  height: fit-content;
+}
+
+.date {
+  color: #65656b;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.edit {
+  display: none;
+  align-items: center;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.mat-icon {
+  color: #f3591e;
+  margin-right: 10px;
+}

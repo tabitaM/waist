@@ -8,9 +8,7 @@ import {
 import { getCurrentDate } from '../utils/utils';
 import { AuthService } from './auth.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class MeasurementsService {
   firebaseMeasurements: AngularFireList<any>;
   measureSelected: AngularFireObject<Measurement> = null;

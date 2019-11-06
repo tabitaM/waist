@@ -1,24 +1,23 @@
 .date {
   text-align: center;
-  font-size: 40px;
+  font-size: 20px;
   font-weight: bold;
   color: white;
-  padding-top: 1em;
-  padding-bottom: 1.5em;
+  margin: 70px 0px 100px 0px;
 }
 
 .edit-section {
-    padding-left: 2em;
+  padding-left: 2em;
 }
 
 .update-button {
-    background: #f09983;
-    color: black;
-    margin-left: 3.5em;
+  background: #f3591e;
+  color: black;
+  margin-left: 3.5em;
 }
 
 .back-button {
-  background: #f09983;
+  background: #f3591e;
   color: black;
   position: absolute;
   bottom: 40px;

@@ -1,0 +1,34 @@
+<div class="measurements">
+  <div>
+    <div class="content">
+      <div class="value">
+        {{ measurement.waist }}
+        <div class="description">waist</div>
+      </div>
+      <div class="value">
+        {{ measurement.bicep }}
+        <div class="description">bicep</div>
+      </div>
+      <div class="value">
+        {{ measurement.chest }}
+        <div class="description">chest</div>
+      </div>
+      <div class="value">
+        {{ measurement.weight }}
+        <div class="description">weight</div>
+      </div>
+    </div>
+    <div class="date">{{ measurement.date }}</div>
+  </div>
+  <div class="edit">
+    <a [routerLink]="['/edit', measurement.key]">
+      <mat-icon aria-hidden="false" aria-label="edit icon">edit</mat-icon>
+    </a>
+    <mat-icon
+      aria-hidden="false"
+      aria-label="delete icon"
+      (click)="deleteMeasurement(measurement.key)"
+      >delete
+    </mat-icon>
+  </div>
+</div>

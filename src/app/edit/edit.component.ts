@@ -5,6 +5,7 @@ import { MeasurementsService } from '../service/measurements.service';
 import { Location } from '@angular/common';
 import { AuthService } from '../service/auth.service';
 import { Subscription } from 'rxjs';
+import { SnackbarService } from '../service/snackbar.service';
 
 @Component({
   selector: 'app-edit',
@@ -27,7 +28,8 @@ export class EditComponent implements OnInit, OnDestroy {
     private measurementsService: MeasurementsService,
     private router: Router,
     private location: Location,
-    private authService: AuthService
+    private authService: AuthService,
+    private snackbarService: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -55,7 +57,7 @@ export class EditComponent implements OnInit, OnDestroy {
 
   updateMeasurement(measurement: Measurement) {
     this.measurementsService.update(measurement);
-    alert('Measurement was successfully updated!');
+    this.snackbarService.show('Measurement was successfully updated!');
     this.router.navigate(['measurements']);
   }
 

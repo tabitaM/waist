@@ -1,0 +1,45 @@
+<div class="container">
+  <form>
+    <div class="title">REGISTER</div>
+    <mat-form-field appearance="outline">
+      <mat-label>email</mat-label>
+      <input
+        matInput
+        placeholder="example@domain.com"
+        [(ngModel)]="email"
+        name="registerEmail"
+        autocomplete="username"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>password</mat-label>
+      <input
+        matInput
+        type="password"
+        [(ngModel)]="password"
+        name="registerPassword"
+        autocomplete="new-password"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>confirm password</mat-label>
+      <input
+        matInput
+        type="password"
+        [(ngModel)]="confirmPassword"
+        name="registerConfirmPassword"
+        autocomplete="new-password"
+      />
+    </mat-form-field>
+    <div class="buttons">
+      <button class="register" mat-raised-button (click)="register()">
+        Register
+      </button>
+      <button mat-raised-button (click)="close()">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

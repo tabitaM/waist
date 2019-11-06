@@ -13,24 +13,32 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import {
   MatButtonModule,
+  MatSidenavModule,
   MatCheckboxModule,
   MatFormFieldModule,
   MatInputModule,
   MatIconModule,
-  MatCardModule
+  MatSnackBarModule,
+  MatCardModule,
+  MatDialogModule
 } from '@angular/material';
 import { EditComponent } from './edit/edit.component';
 import { MeasurementsService } from './service/measurements.service';
 import { LoginComponent } from './users/login/login.component';
 import { AuthService } from './service/auth.service';
+import { SnackbarService } from './service/snackbar.service';
 import { AuthGuard } from './utils/auth-guard/auth.guard';
+import { RegisterComponent } from './users/register/register.component';
+import { MeasurementDetailComponent } from './measurement-detail/measurement-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MeasurementsComponent,
     EditComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent,
+    MeasurementDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -43,8 +51,11 @@ import { AuthGuard } from './utils/auth-guard/auth.guard';
     MatCheckboxModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSidenavModule,
+    MatSnackBarModule,
     MatIconModule,
     MatCardModule,
+    MatDialogModule,
     ReactiveFormsModule,
     AngularFireAuthModule,
     RouterModule.forRoot([
@@ -58,7 +69,8 @@ import { AuthGuard } from './utils/auth-guard/auth.guard';
       { path: 'edit/:key', component: EditComponent, canActivate: [AuthGuard] }
     ])
   ],
-  providers: [MeasurementsService, AuthService, AuthGuard],
-  bootstrap: [AppComponent]
+  providers: [MeasurementsService, AuthService, AuthGuard, SnackbarService],
+  bootstrap: [AppComponent],
+  entryComponents: [RegisterComponent]
 })
 export class AppModule {}
